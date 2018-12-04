@@ -79,9 +79,9 @@ class Caixa
   end
 
   def realiza_transacao(transacao)
-      @transacoes << transacao
-      puts 'Operação realizada com sucesso!'
-      transacao.to_s 
+    @transacoes << transacao
+    puts 'Operação realizada com sucesso!'
+    transacao.to_s 
   end
   
   #Imprime no terminal informações atualizadas sobre o caixa
