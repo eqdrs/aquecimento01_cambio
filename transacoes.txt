@@ -1,0 +1,2 @@
+Compra;Dolar;3.80;100.00
+Compra;Real;3.80;131.58

@@ -61,3 +61,6 @@ while opcao != 7
   opcao = menu()
 end
 
+#Salva transações realizadas durante o dia em arquivo
+caixa.salva_transacoes()
+
