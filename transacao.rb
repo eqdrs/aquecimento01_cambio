@@ -1,7 +1,8 @@
 class Transacao
-  attr_accessor :tipo, :moeda, :cotacao, :total
+  attr_accessor :id, :tipo, :moeda, :cotacao, :total
 
-  def initialize(tipo, moeda, cotacao, total)
+  def initialize(id, tipo, moeda, cotacao, total)
+	@id = id
     @tipo = tipo
     @moeda = moeda
     @cotacao = format("%.2f", cotacao)
@@ -30,6 +31,6 @@ class Transacao
   
   #Imprime transação no formato para ser salvo em arquivo, separado por ;
   def imprime()
-    "#{@tipo};#{@moeda};#{@cotacao};#{@total}\n"
+    "#{@id};#{@tipo};#{@moeda};#{@cotacao};#{@total}\n"
   end
 end

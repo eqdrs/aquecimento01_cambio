@@ -17,7 +17,7 @@ class Caixa
     elsif confirma_transacao(valor, 'dólares')
       @dolares += valor
       @reais -= Transacao.to_real(valor, @cotacao)
-      transacao = Transacao.new('Compra', 'Dolar', @cotacao, valor)
+      transacao = Transacao.new(@transacoes.length+1, 'Compra', 'Dolar', @cotacao, valor)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -30,7 +30,7 @@ class Caixa
     elsif confirma_transacao(valor, 'dólares')
       @dolares -= valor
       @reais += Transacao.to_real(valor, @cotacao)
-      transacao = Transacao.new('Venda', 'Dolar', @cotacao, valor)
+      transacao = Transacao.new(@transacoes.length+1, 'Venda', 'Dolar', @cotacao, valor)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -43,7 +43,7 @@ class Caixa
     elsif confirma_transacao(valor, 'reais')
       @reais += valor
       @dolares -= Transacao.to_dolar(valor, @cotacao)
-      transacao = Transacao.new('Compra', 'Real', @cotacao, Transacao.to_dolar(valor, @cotacao))
+      transacao = Transacao.new(@transacoes.length+1, 'Compra', 'Real', @cotacao, Transacao.to_dolar(valor, @cotacao))
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -56,7 +56,7 @@ class Caixa
     elsif confirma_transacao(valor, 'reais')
       @reais -= valor
       @dolares += Transacao.to_dolar(valor, @cotacao)
-      transacao = Transacao.new('Venda', 'Real', @cotacao, Transacao.to_dolar(valor, @cotacao))
+      transacao = Transacao.new(@transacoes.length+1, 'Venda', 'Real', @cotacao, Transacao.to_dolar(valor, @cotacao))
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -100,9 +100,9 @@ class Caixa
     @transacoes.each do |transacao|
       rows << transacao.attributes
     end
-    table = Terminal::Table.new :title => "Transações", :headings => ['Tipo', 'Moeda', 'Cotação do dia (reais)', 'Total da transação (em dólar)'], :rows => rows
-    table.align_column(2, :right)
+    table = Terminal::Table.new :title => "Transações", :headings => ['ID', 'Tipo', 'Moeda', 'Cotação (R$)', 'Total da transação ($)'], :rows => rows
     table.align_column(3, :right)
+    table.align_column(4, :right)
     puts table
   end
   
