@@ -121,6 +121,6 @@ class Caixa
       aux.each_slice(5).map {|id, tipo, moeda, cotacao, total| @transacoes << Transacao.new(id, tipo, moeda, cotacao, total)}
     end
     puts 'Transações carregadas com sucesso!'
-	true
+    true
   end
 end
