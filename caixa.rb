@@ -94,7 +94,7 @@ class Caixa
     puts table
   end
   
-  #Imprime lista de transações já realizadas
+  #Imprime lista de transações já realizadas utilizando a gem terminal-table 
   def imprime_transacoes()
     rows = []
     @transacoes.each do |transacao|
@@ -113,5 +113,13 @@ class Caixa
         file.write(transacao.imprime)
       end
     end
+  end
+  
+  def carrega_transacoes()
+    File.readlines('transacoes.txt').map do |line|
+      aux = line.chomp.split(";")
+      aux.each_slice(5).map {|id, tipo, moeda, cotacao, total| @transacoes << Transacao.new(id, tipo, moeda, cotacao, total)}
+    end
+    puts 'Transações carregadas com sucesso!'
   end
 end

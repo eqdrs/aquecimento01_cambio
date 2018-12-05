@@ -30,7 +30,19 @@ def abre_caixa()
   Caixa.new(cotacao, dolares, reais)
 end
 
+#Carrega histórico de transações ao iniciar sistema, caso o usuário deseje
+def carrega_transacoes(caixa)
+  loop do
+    puts 'Carregar histórico de transações? (s/n)'
+    resposta = gets.chomp
+    (resposta == 's') && (caixa.carrega_transacoes) && return or
+    (resposta == 'n') && return or
+    puts 'Resposta inválida!' 
+  end
+end
+
 caixa = abre_caixa()
+carrega_transacoes(caixa)
 opcao = menu()
 
 while opcao != 7 
@@ -61,6 +73,6 @@ while opcao != 7
   opcao = menu()
 end
 
-#Salva transações realizadas durante o dia em arquivo
+#Salva transações realizadas durante o dia em arquivo 
 caixa.salva_transacoes()
 
