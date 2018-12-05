@@ -29,7 +29,7 @@ class Transacao
     valor / cotacao
   end
   
-  #Imprime transação no formato para ser salvo em arquivo, separado por ;
+  #Imprime transacao no formato para ser salvo em arquivo, separado por ;
   def imprime()
     "#{@id};#{@tipo};#{@moeda};#{@cotacao};#{@total}\n"
   end

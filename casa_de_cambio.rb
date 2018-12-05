@@ -35,8 +35,8 @@ def carrega_transacoes(caixa)
   loop do
     puts 'Carregar histórico de transações? (s/n)'
     resposta = gets.chomp
-    (resposta == 's') && (caixa.carrega_transacoes) && return or
-    (resposta == 'n') && return or
+    (resposta == 's') && (caixa.carrega_transacoes) && (return) or
+    (resposta == 'n') && (return) or
     puts 'Resposta inválida!' 
   end
 end

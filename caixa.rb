@@ -108,7 +108,7 @@ class Caixa
   
   #Salva transações do dia em arquivo
   def salva_transacoes()
-    File.open('transacoes.txt', 'w+') do |file|
+    File.open('transacoes.txt', 'w') do |file|
       @transacoes.each do |transacao|
         file.write(transacao.imprime)
       end
@@ -121,5 +121,6 @@ class Caixa
       aux.each_slice(5).map {|id, tipo, moeda, cotacao, total| @transacoes << Transacao.new(id, tipo, moeda, cotacao, total)}
     end
     puts 'Transações carregadas com sucesso!'
+	true
   end
 end

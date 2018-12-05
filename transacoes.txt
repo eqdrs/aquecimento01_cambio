@@ -2,3 +2,4 @@
 2;Venda;Dolar;3.80;30.00
 3;Compra;Real;3.80;131.58
 4;Venda;Real;3.80;39.47
+5;Compra;Dolar;2.00;50.00
