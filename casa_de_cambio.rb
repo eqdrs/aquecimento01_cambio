@@ -65,7 +65,7 @@ while opcao != 7
   elsif opcao == 5
     caixa.imprime_transacoes
   elsif opcao == 6
-    caixa.to_s
+    puts caixa
   else
     puts
     puts 'Opção inválida!'

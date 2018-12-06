@@ -81,7 +81,7 @@ class Caixa
   def realiza_transacao(transacao)
     @transacoes << transacao
     puts 'Operação realizada com sucesso!'
-    transacao.to_s 
+    puts transacao 
   end
   
   #Imprime no terminal informações atualizadas sobre o caixa
@@ -91,7 +91,6 @@ class Caixa
     rows << ['Dólares disponíveis', "$ #{format("%.2f", @dolares)}"]
     rows << ['Reais disponíveis', "R$ #{format("%.2f", @reais)}"]
     table = Terminal::Table.new :title => "Informações sobre o caixa", :rows => rows
-    puts table
   end
   
   #Imprime lista de transações já realizadas utilizando a gem terminal-table 

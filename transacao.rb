@@ -10,11 +10,10 @@ class Transacao
   end
   
   def to_s()
-    puts
-    puts "Tipo de operação: #{@tipo}"
-    puts "Moeda: #{@moeda}"
-    puts "Cotação: 1 dólar = #{@cotacao} reais"
-    puts "Total da transação: #{@total} dólares"
+    "\nTipo de operação: #{@tipo}\n"\
+    "Moeda: #{@moeda}\n"\
+    "Cotação: 1 dólar = #{@cotacao} reais\n"\
+    "Total da transação: #{@total} dólares"
   end
   
   def attributes
