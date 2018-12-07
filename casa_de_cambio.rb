@@ -21,13 +21,13 @@ end
 #Operação para abrir o caixa
 def abre_caixa()
   puts 'Bem-vindo à Casa de Câmbio!'
-  puts 'Insira a cotação atual do dólar (em reais): '
+  print 'Insira a cotação atual do dólar (em reais): '
   cotacao = gets.to_f
-  puts 'Insira o montante de DÓLARES disponíveis: '
+  print 'Insira o montante de DÓLARES disponíveis: $ '
   dolares = gets.to_f
-  puts 'Insira o montante de REAIS disponíveis: '
+  print 'Insira o montante de REAIS disponíveis: R$'
   reais = gets.to_f
-  Caixa.new(cotacao, dolares, reais)
+  Caixa.new(cotacao: cotacao, dolares: dolares, reais: reais)
 end
 
 #Carrega histórico de transações ao iniciar sistema, caso o usuário deseje
@@ -41,25 +41,25 @@ def carrega_transacoes(caixa)
   end
 end
 
-caixa = abre_caixa()
+caixa = abre_caixa
 carrega_transacoes(caixa)
-opcao = menu()
+opcao = menu
 
 while opcao != 7 
   if opcao == 1
-    puts 'Insira o valor desejado (em dólares): '
+    print 'Insira o valor desejado (em dólares): $ '
     valor = gets.to_f
     caixa.compra_dolares(valor)
   elsif opcao == 2
-    puts 'Insira o valor desejado (em dólares): '
+    print 'Insira o valor desejado (em dólares): $ '
     valor = gets.to_f
     caixa.vende_dolares(valor)
   elsif opcao == 3
-    puts 'Insira o valor desejado (em reais): '
+    print 'Insira o valor desejado (em reais): R$ '
     valor = gets.to_f
     caixa.compra_reais(valor)
   elsif opcao == 4
-    puts 'Insira o valor desejado (em reais): '
+    print 'Insira o valor desejado (em reais): R$'
     valor = gets.to_f
     caixa.vende_reais(valor)
   elsif opcao == 5
@@ -70,7 +70,7 @@ while opcao != 7
     puts
     puts 'Opção inválida!'
   end
-  opcao = menu()
+  opcao = menu
 end
 
 #Salva transações realizadas durante o dia em arquivo 

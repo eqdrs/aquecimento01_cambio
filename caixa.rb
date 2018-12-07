@@ -2,9 +2,9 @@ require_relative 'transacao'
 require 'terminal-table'
 
 class Caixa
-  attr_accessor :cotacao, :dolares, :reais
+  attr_accessor :cotacao, :dolares, :reais, :transacoes
   
-  def initialize(cotacao, dolares, reais)
+  def initialize(cotacao:, dolares:, reais:)
     @cotacao = cotacao
     @dolares = dolares
     @reais = reais
@@ -17,7 +17,8 @@ class Caixa
     elsif confirma_transacao(valor, 'dólares')
       @dolares += valor
       @reais -= Transacao.to_real(valor, @cotacao)
-      transacao = Transacao.new(@transacoes.length+1, 'Compra', 'Dolar', @cotacao, valor)
+      transacao = Transacao.new(id: @transacoes.length+1, tipo: 'Compra', 
+                                moeda: 'Dolar', cotacao: @cotacao, total: valor)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -30,7 +31,8 @@ class Caixa
     elsif confirma_transacao(valor, 'dólares')
       @dolares -= valor
       @reais += Transacao.to_real(valor, @cotacao)
-      transacao = Transacao.new(@transacoes.length+1, 'Venda', 'Dolar', @cotacao, valor)
+      transacao = Transacao.new(id: @transacoes.length+1, tipo: 'Venda', 
+                                moeda: 'Dolar', cotacao: @cotacao, total: valor)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -43,7 +45,8 @@ class Caixa
     elsif confirma_transacao(valor, 'reais')
       @reais += valor
       @dolares -= Transacao.to_dolar(valor, @cotacao)
-      transacao = Transacao.new(@transacoes.length+1, 'Compra', 'Real', @cotacao, Transacao.to_dolar(valor, @cotacao))
+      transacao = Transacao.new(id: @transacoes.length+1, tipo: 'Compra', moeda: 'Real', 
+                                cotacao: @cotacao, total: Transacao.to_dolar(valor, @cotacao))
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -56,7 +59,8 @@ class Caixa
     elsif confirma_transacao(valor, 'reais')
       @reais -= valor
       @dolares += Transacao.to_dolar(valor, @cotacao)
-      transacao = Transacao.new(@transacoes.length+1, 'Venda', 'Real', @cotacao, Transacao.to_dolar(valor, @cotacao))
+      transacao = Transacao.new(id: @transacoes.length+1, tipo: 'Venda', moeda: 'Real', 
+                                cotacao: @cotacao, total: Transacao.to_dolar(valor, @cotacao))
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -118,7 +122,10 @@ class Caixa
   def carrega_transacoes()
     File.readlines('transacoes.txt').map do |line|
       aux = line.chomp.split(";")
-      aux.each_slice(5).map {|id, tipo, moeda, cotacao, total| @transacoes << Transacao.new(id, tipo, moeda, cotacao, total)}
+      aux.each_slice(5).map do |id, tipo, moeda, cotacao, total| 
+        @transacoes << Transacao.new(id: id, tipo: tipo, moeda: moeda, 
+                                    cotacao:  cotacao, total: total)
+      end
     end
     puts 'Transações carregadas com sucesso!'
     true

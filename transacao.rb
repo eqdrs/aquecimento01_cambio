@@ -1,7 +1,7 @@
 class Transacao
   attr_accessor :id, :tipo, :moeda, :cotacao, :total
 
-  def initialize(id, tipo, moeda, cotacao, total)
+  def initialize(id:, tipo:, moeda:, cotacao:, total:)
     @id = id
     @tipo = tipo
     @moeda = moeda
