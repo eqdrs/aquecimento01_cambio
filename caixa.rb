@@ -114,7 +114,7 @@ class Caixa
     puts table
   end
 
-  #Salva transacoes do dia no banco de dados
+  #Salva transação no banco de dados
   def salva_transacoes(transacao)
     db = SQLite3::Database.open 'cambio.db'
     db.execute("INSERT INTO transactions (tipo,moeda,cotacao,total) VALUES (?,?,?,?) ", 
