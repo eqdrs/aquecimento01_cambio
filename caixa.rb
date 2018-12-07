@@ -95,7 +95,7 @@ class Caixa
     rows << ['Dólares disponíveis', "$ #{format("%.2f", @dolares)}"]
     rows << ['Reais disponíveis', "R$ #{format("%.2f", @reais)}"]
     table = Terminal::Table.new :title => "Informações sobre o caixa", :rows => rows
-	table.to_s
+    table.to_s
   end
   
   #Imprime lista de transações já realizadas utilizando a gem terminal-table 
@@ -124,7 +124,7 @@ class Caixa
       aux = line.chomp.split(";")
       aux.each_slice(5).map do |id, tipo, moeda, cotacao, total| 
         @transacoes << Transacao.new(id: id, tipo: tipo, moeda: moeda, 
-                                    cotacao:  cotacao, total: total)
+                                      cotacao:  cotacao, total: total)
       end
     end
     puts 'Transações carregadas com sucesso!'

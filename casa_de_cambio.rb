@@ -25,7 +25,7 @@ def abre_caixa()
   cotacao = gets.to_f
   print 'Insira o montante de DÓLARES disponíveis: $ '
   dolares = gets.to_f
-  print 'Insira o montante de REAIS disponíveis: R$'
+  print 'Insira o montante de REAIS disponíveis: R$ '
   reais = gets.to_f
   Caixa.new(cotacao: cotacao, dolares: dolares, reais: reais)
 end
