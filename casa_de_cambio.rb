@@ -1,8 +1,9 @@
 require_relative 'caixa'
+require "sqlite3"
 
 #Aquecimento 01 - Projeto Casa de Câmbio via Terminal
 
-def menu()
+def menu
   puts
   puts 'Escolha uma opção no menu:'
   puts '[1] Comprar dólares'
@@ -19,7 +20,7 @@ def menu()
 end
 
 #Operação para abrir o caixa
-def abre_caixa()
+def abre_caixa
   puts 'Bem-vindo à Casa de Câmbio!'
   print 'Insira a cotação atual do dólar (em reais): '
   cotacao = gets.to_f
@@ -72,7 +73,4 @@ while opcao != 7
   end
   opcao = menu
 end
-
-#Salva transações realizadas durante o dia em arquivo 
-caixa.salva_transacoes()
 
