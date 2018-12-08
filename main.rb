@@ -42,7 +42,6 @@ def abre_caixa
     puts caixa
     puts "Deseja atualizar as informações do caixa? (s/n)"
     confirma? && caixa.atualiza_caixa
-    caixa
   else
     print 'Insira a cotação atual do dólar (em reais): '
     cotacao = gets.to_f
@@ -52,8 +51,8 @@ def abre_caixa
     reais = gets.to_f
     caixa = Caixa.new(date: date, cotacao: cotacao, dolares: dolares, reais: reais)
     caixa.salva_caixa
-    caixa
   end
+  caixa
 end
 
 caixa = abre_caixa
