@@ -62,7 +62,6 @@ def abre_caixa
     caixa = Caixa.new(id_caixa: proximo_id, nome_caixa: nome_caixa, date: date, cotacao: cotacao, dolares: dolares, reais: reais)
     caixa.salva_caixa
   end
-
   caixa
 end
 
