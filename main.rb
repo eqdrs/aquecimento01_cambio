@@ -40,7 +40,7 @@ def abre_caixa
   result = db.get_first_row('SELECT * FROM cashiers WHERE date = ? AND  nome_caixa = ?', date, nome_caixa)
   db.close
 
-  #Verifica último registro/ID de caixa
+  # Verifica último registro/ID de caixa
   ultimo_registro !=nil ? (proximo_id = ultimo_registro['id_caixa']+1) : (proximo_id = 1)
 
   # Verifica se já existe caixa do dia cadastrado no banco de dados
