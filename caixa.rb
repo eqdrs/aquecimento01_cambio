@@ -1,9 +1,11 @@
 require_relative 'transacao'
 
 class Caixa
-  attr_accessor :date, :cotacao, :dolares, :reais
+  attr_accessor :id_caixa, :nome_caixa, :date, :cotacao, :dolares, :reais
   
-  def initialize(date:, cotacao:, dolares:, reais:)
+  def initialize(id_caixa:, nome_caixa:, date:, cotacao:, dolares:, reais:)
+    @id_caixa = id_caixa
+    @nome_caixa = nome_caixa
     @date = date
     @cotacao = cotacao
     @dolares = dolares
@@ -16,7 +18,7 @@ class Caixa
     elsif confirma_transacao?(valor, 'dólares')
       @dolares += valor
       @reais -= Transacao.to_real(valor, @cotacao)
-      transacao = Transacao.new(tipo: 'Compra', moeda: 'Dolar', cotacao: @cotacao, total: valor)
+      transacao = Transacao.new(tipo: 'Compra', moeda: 'Dolar', cotacao: @cotacao, total: valor, id_caixa: @id_caixa)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -29,7 +31,7 @@ class Caixa
     elsif confirma_transacao?(valor, 'dólares')
       @dolares -= valor
       @reais += Transacao.to_real(valor, @cotacao)
-      transacao = Transacao.new(tipo: 'Venda', moeda: 'Dolar', cotacao: @cotacao, total: valor)
+      transacao = Transacao.new(tipo: 'Venda', moeda: 'Dolar', cotacao: @cotacao, total: valor, id_caixa: @id_caixa)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -43,7 +45,7 @@ class Caixa
       @reais += valor
       @dolares -= Transacao.to_dolar(valor, @cotacao)
       transacao = Transacao.new(tipo: 'Compra', moeda: 'Real', cotacao: @cotacao, 
-                                total: Transacao.to_dolar(valor, @cotacao))
+                                total: Transacao.to_dolar(valor, @cotacao), id_caixa: @id_caixa)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -57,7 +59,7 @@ class Caixa
       @reais -= valor
       @dolares += Transacao.to_dolar(valor, @cotacao)
       transacao = Transacao.new(tipo: 'Venda', moeda: 'Real', cotacao: @cotacao, 
-                                total: Transacao.to_dolar(valor, @cotacao))
+                                total: Transacao.to_dolar(valor, @cotacao), id_caixa: @id_caixa)
       realiza_transacao(transacao)
     else
       puts 'Operação cancelada pelo usuário!'
@@ -69,7 +71,7 @@ class Caixa
     puts "#{format("%.2f", valor)} #{moeda}"
     (moeda == 'dólares') && (puts "#{format("%.2f", Transacao.to_real(valor, @cotacao))} reais") or
     (moeda == 'reais') && (puts "#{format("%.2f", Transacao.to_dolar(valor, @cotacao))} dólares")
- 
+
     loop do
       puts "\nConfirma transação? (s/n)"
       resposta = gets.chomp
@@ -79,13 +81,14 @@ class Caixa
     end
   end
 
+  # Finaliza a operação, gravando no banco de dados e retornando informações sobre a transação
   def realiza_transacao(transacao)
     transacao.salva_transacao
     puts 'Operação realizada com sucesso!'
     puts transacao 
   end
   
-  #Imprime no terminal informações atualizadas sobre o caixa
+  # Imprime no terminal informações atualizadas sobre o caixa
   def to_s
     rows = []
     rows << ['Cotação do dia', "1 dólar = #{format("%.2f", @cotacao)} reais"]
@@ -97,7 +100,8 @@ class Caixa
 
   def salva_caixa
     db = SQLite3::Database.open 'cambio.db'
-    db.execute("INSERT INTO cashiers (date,cotacao,dolares,reais) VALUES (?,?,?,?) ", 
+    db.execute("INSERT INTO cashiers (nome_caixa,date,cotacao,dolares,reais) VALUES (?,?,?,?,?) ",
+        @nome_caixa,
         @date, 
         @cotacao, 
         @dolares, 
@@ -106,7 +110,7 @@ class Caixa
     db.close   
   end
 
-  #Atualiza informações do caixa do dia no banco de dados
+  # Atualiza informações do caixa do dia no banco de dados
   def atualiza_caixa
     puts
     @date = DateTime.now.strftime("%Y-%m-%d")
@@ -117,12 +121,13 @@ class Caixa
     print 'Insira o montante de REAIS disponíveis: R$ '
     @reais = gets.to_f
     db = SQLite3::Database.open 'cambio.db'
-    db.execute("UPDATE cashiers SET date = ?, cotacao = ?, dolares = ?, reais = ? WHERE date = ?", 
+    db.execute("UPDATE cashiers SET date = ?, cotacao = ?, dolares = ?, reais = ? WHERE date = ? AND nome_caixa = ?", 
         @date, 
         @cotacao, 
         @dolares, 
         @reais,
-        @date
+        @date,
+        @nome_caixa
     )
     db.close
     puts "Caixa atualizado com sucesso!"
