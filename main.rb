@@ -31,7 +31,7 @@ end
 # Operação para abrir o caixa do dia
 def abre_caixa
   puts '======== Bem-vindo à Casa de Câmbio! ========'
-  print "\nDigite seu nome de usuário: "
+  print "\nDigite o nome do Operador: "
   nome_caixa = gets.chomp
   date = DateTime.now.strftime("%Y-%m-%d")
   db = SQLite3::Database.open 'cambio.db'
