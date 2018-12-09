@@ -46,7 +46,8 @@ def abre_caixa
   # Verifica se já existe caixa do dia cadastrado no banco de dados
   if result != nil 
     puts "\nCaixa do dia já possui cadastro no banco de dados:"
-    caixa = Caixa.new(id_caixa: result['id_caixa'], nome_caixa: result['nome_caixa'], date: result['date'], cotacao: result['cotacao'], dolares: result['dolares'], reais: result['reais'])
+    caixa = Caixa.new(id_caixa: result['id_caixa'], nome_caixa: result['nome_caixa'], date: result['date'], 
+                      cotacao: result['cotacao'], dolares: result['dolares'], reais: result['reais'])
     puts caixa
     puts "Deseja atualizar as informações do caixa? (s/n)"
     confirma? && caixa.atualiza_caixa
@@ -59,7 +60,8 @@ def abre_caixa
     dolares = gets.to_f
     print 'Insira o montante de REAIS disponíveis: R$ '
     reais = gets.to_f
-    caixa = Caixa.new(id_caixa: proximo_id, nome_caixa: nome_caixa, date: date, cotacao: cotacao, dolares: dolares, reais: reais)
+    caixa = Caixa.new(id_caixa: proximo_id, nome_caixa: nome_caixa, date: date, 
+                      cotacao: cotacao, dolares: dolares, reais: reais)
     caixa.salva_caixa
   end
   caixa
